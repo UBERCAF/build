@@ -82,6 +82,3 @@ ifndef LOCAL_IS_HOST_MODULE
     endif
   endif
 endif
-
-# QCOM pathmap stuff
-include build/core/qcom_target.mk
