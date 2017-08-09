@@ -1977,10 +1977,24 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE)
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
+CUSTOM_TARGET_PACKAGE := $(PRODUCT_OUT)/$(TARGET_PRODUCT)-$(shell date +%Y%m%d).zip
+
 .PHONY: otapackage bacon uber
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
-uber: otapackage
+faster: otapackage
+	@echo -e ""
+	@echo -e ""
+	@echo -e "██╗   ██╗██████╗ ███████╗██████╗ ██████╗  ██████╗ ███╗   ███╗███████╗";
+	@echo -e "██║   ██║██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔═══██╗████╗ ████║██╔════╝";
+	@echo -e "██║   ██║██████╔╝█████╗  ██████╔╝██████╔╝██║   ██║██╔████╔██║███████╗";
+	@echo -e "██║   ██║██╔══██╗██╔══╝  ██╔══██╗██╔══██╗██║   ██║██║╚██╔╝██║╚════██║";
+	@echo -e "╚██████╔╝██████╔╝███████╗██║  ██║██║  ██║╚██████╔╝██║ ╚═╝ ██║███████║";
+	@echo -e " ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝";
+	@echo -e ""
+	@echo -e ""
+	@echo -e "Package Complete: $(CUSTOM_TARGET_PACKAGE)"
+	@echo -e "SIZE:`ls -lah $(INTERNAL_OTA_PACKAGE_TARGET) | cut -d ' ' -f 5`"
 
 endif    # build_ota_package
 
