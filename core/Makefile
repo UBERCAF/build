@@ -1992,10 +1992,10 @@ faster: otapackage
 	@echo -e "╚██████╔╝██████╔╝███████╗██║  ██║██║  ██║╚██████╔╝██║ ╚═╝ ██║███████║";
 	@echo -e " ╚═════╝ ╚═════╝ ╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝ ╚═╝     ╚═╝╚══════╝";
 	@echo -e ""
-	@echo -e ""
+	@echo -e "Now the build is done, let's kill jack.            "
 	@echo -e "Package Complete: $(CUSTOM_TARGET_PACKAGE)"
 	@echo -e "SIZE:`ls -lah $(INTERNAL_OTA_PACKAGE_TARGET) | cut -d ' ' -f 5`"
-
+	jack-admin stop-server
 endif    # build_ota_package
 
 # -----------------------------------------------------------------
