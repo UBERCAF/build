@@ -1982,7 +1982,7 @@ CUSTOM_TARGET_PACKAGE := $(PRODUCT_OUT)/$(TARGET_PRODUCT)-$(shell date +%Y-%m-%d
 .PHONY: otapackage bacon uber
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
-faster: otapackage
+uber: otapackage
 	@echo -e ""
 	@echo -e ""
 	@echo -e "██╗   ██╗██████╗ ███████╗██████╗ ██████╗  ██████╗ ███╗   ███╗███████╗";
