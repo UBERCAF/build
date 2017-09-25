@@ -101,7 +101,11 @@ ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
     endif
     endif
 
+ifneq ($(filter angler, $(TARGET_DEVICE)),)
+$(call project-set-path,qcom-audio,hardware/qcom/audio/$(QCOM_HARDWARE_VARIANT))
+else
 $(call project-set-path,qcom-audio,hardware/qcom/audio-caf/$(QCOM_HARDWARE_VARIANT))
+endif
 $(call project-set-path,qcom-display,hardware/qcom/display-caf/$(QCOM_HARDWARE_VARIANT))
 $(call project-set-path,qcom-media,hardware/qcom/media-caf/$(QCOM_HARDWARE_VARIANT))
 
