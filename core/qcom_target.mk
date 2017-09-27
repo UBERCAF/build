@@ -102,7 +102,7 @@ ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
     endif
 
 ifneq ($(filter angler, $(TARGET_DEVICE)),)
-$(call project-set-path,qcom-audio,hardware/qcom/audio/$(QCOM_HARDWARE_VARIANT))
+$(call project-set-path,qcom-audio,hardware/qcom/audio)
 else
 $(call project-set-path,qcom-audio,hardware/qcom/audio-caf/$(QCOM_HARDWARE_VARIANT))
 endif
@@ -121,7 +121,7 @@ $(call bt-vendor-set-path-variant,bt-caf)
 
 else
 
-$(call project-set-path,qcom-audio,hardware/qcom/audio/default)
+$(call project-set-path,qcom-audio,hardware/qcom/audio)
 $(call project-set-path,qcom-display,hardware/qcom/display/$(TARGET_BOARD_PLATFORM))
 $(call project-set-path,qcom-media,hardware/qcom/media/$(TARGET_BOARD_PLATFORM))
 
