@@ -1,18 +1,7 @@
 # Target-specific configuration
 
 # Bring in Qualcomm helper macros
-include $(BUILD_SYSTEM)/qcom_utils.mk
-
-# Populate the qcom hardware variants in the project pathmap.
-define ril-set-path-variant
-$(call project-set-path-variant,ril,TARGET_RIL_VARIANT,hardware/$(1))
-endef
-define wlan-set-path-variant
-$(call project-set-path-variant,wlan,TARGET_WLAN_VARIANT,hardware/qcom/$(1))
-endef
-define bt-vendor-set-path-variant
-$(call project-set-path-variant,bt-vendor,TARGET_BT_VENDOR_VARIANT,hardware/qcom/$(1))
-endef
+include build/core/qcom_utils.mk
 
 # Set device-specific HALs into project pathmap
 define set-device-specific-path
@@ -59,13 +48,13 @@ ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
         qcom_flags += -DHAS_EXTRA_FLAC_METADATA
     endif
 
-    # Enable color metadata for 8xx UM targets
-    ifneq ($(filter msm8996 msm8998,$(TARGET_BOARD_PLATFORM)),)
+    # Enable color metadata for modern UM targets
+    ifneq ($(filter msm8996 msm8998 sdm660,$(TARGET_BOARD_PLATFORM)),)
         TARGET_USES_COLOR_METADATA := true
     endif
 
     # List of targets that use master side content protection
-    MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998
+    MASTER_SIDE_CP_TARGET_LIST := msm8996 msm8998 sdm660
 
     TARGET_GLOBAL_CFLAGS += $(qcom_flags)
     TARGET_GLOBAL_CPPFLAGS += $(qcom_flags)
@@ -101,13 +90,9 @@ ifeq ($(BOARD_USES_QCOM_HARDWARE),true)
     endif
     endif
 
-ifneq ($(filter angler, $(TARGET_DEVICE)),)
-$(call project-set-path,qcom-audio,hardware/qcom/audio)
-else
-$(call project-set-path,qcom-audio,hardware/qcom/audio-caf/$(QCOM_HARDWARE_VARIANT))
-endif
-$(call project-set-path,qcom-display,hardware/qcom/display-caf/$(QCOM_HARDWARE_VARIANT))
-$(call project-set-path,qcom-media,hardware/qcom/media-caf/$(QCOM_HARDWARE_VARIANT))
+$(call set-device-specific-path,AUDIO,audio,hardware/qcom/audio-caf/$(QCOM_HARDWARE_VARIANT))
+$(call set-device-specific-path,DISPLAY,display,hardware/qcom/display-caf/$(QCOM_HARDWARE_VARIANT))
+$(call set-device-specific-path,MEDIA,media,hardware/qcom/media-caf/$(QCOM_HARDWARE_VARIANT))
 
 $(call set-device-specific-path,CAMERA,camera,hardware/qcom/camera)
 $(call set-device-specific-path,GPS,gps,hardware/qcom/gps)
@@ -115,13 +100,9 @@ $(call set-device-specific-path,SENSORS,sensors,hardware/qcom/sensors)
 $(call set-device-specific-path,LOC_API,loc-api,vendor/qcom/opensource/location)
 $(call set-device-specific-path,DATASERVICES,dataservices,vendor/qcom/opensource/dataservices)
 
-$(call ril-set-path-variant,ril)
-$(call wlan-set-path-variant,wlan-caf)
-$(call bt-vendor-set-path-variant,bt-caf)
-
 else
 
-$(call project-set-path,qcom-audio,hardware/qcom/audio)
+$(call project-set-path,qcom-audio,hardware/qcom/audio/default)
 $(call project-set-path,qcom-display,hardware/qcom/display/$(TARGET_BOARD_PLATFORM))
 $(call project-set-path,qcom-media,hardware/qcom/media/$(TARGET_BOARD_PLATFORM))
 
@@ -130,9 +111,5 @@ $(call project-set-path,qcom-gps,hardware/qcom/gps)
 $(call project-set-path,qcom-sensors,hardware/qcom/sensors)
 $(call project-set-path,qcom-loc-api,vendor/qcom/opensource/location)
 $(call project-set-path,qcom-dataservices,$(TARGET_DEVICE_DIR)/dataservices)
-
-$(call ril-set-path-variant,ril)
-$(call wlan-set-path-variant,wlan)
-$(call bt-vendor-set-path-variant,bt)
 
 endif

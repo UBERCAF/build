@@ -45,7 +45,7 @@ GRAPHITE_FLAGS := \
 	-floop-strip-mine \
 	-floop-block
 
-CUSTOM_FLAGS := -O3 -g0 -DNDEBUG -fuse-ld=gold
+CUSTOM_FLAGS := -O3 -g0
 O_FLAGS := -O3 -O2 -Os -O1 -O0 -Og -Oz
 
 # Remove all flags we don't want use high level of optimization
